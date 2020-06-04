@@ -12,8 +12,7 @@ from datetime import datetime, date, time, timezone
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 
 
-client = myfitnesspal.Client(settings.MFP_CLIENT_USERNAME)
-
+client = myfitnesspal.Client(settings.MFP_CLIENT_USERNAME, settings.MFP_CLIENT_PASSWORD)
 
 class IsOwner(permissions.BasePermission):
 

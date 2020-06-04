@@ -79,6 +79,8 @@ WSGI_APPLICATION = 'health_tracker.wsgi.application'
 
 
 MFP_CLIENT_USERNAME = os.environ.get('MFP_CLIENT_USERNAME', '')
+MFP_CLIENT_PASSWORD = os.environ.get('MFP_CLIENT_PASSWORD', '')
+
 
 
 
@@ -99,11 +101,11 @@ DATABASES = {
 
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_RENDERER_CLASSES': (
-#         'rest_framework.renderers.JSONRenderer',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
