@@ -94,7 +94,7 @@ DATABASES = {
         'USER': os.environ.get('db_user', 'healthtrackerman'),
         'PASSWORD': os.environ.get('db_password', 'password'),
         'HOST':  os.environ.get('db_host', 'localhost'),
-        'PORT':  os.environ.get('db_user', ''),
+        'PORT':  os.environ.get('db_port', ''),
         }
 }
 
