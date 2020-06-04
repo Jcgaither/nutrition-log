@@ -1,1 +1,1 @@
-web: gunicorn locallibrary.wsgi --log-file -
+web: gunicorn health_tracker.wsgi --log-file -
