@@ -90,12 +90,11 @@ MFP_CLIENT_PASSWORD = os.environ.get('MFP_CLIENT_PASSWORD', '')
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'healthtracker',
-        'NAME': os.environ.get('db_name', 'healthtracker'),
+        'NAME':  os.environ.get('db_name', 'healthtracker'),
         'USER': os.environ.get('db_user', 'healthtrackerman'),
         'PASSWORD': os.environ.get('db_password', 'password'),
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST':  os.environ.get('db_host', 'localhost'),
+        'PORT':  os.environ.get('db_user', ''),
         }
 }
 
