@@ -21,12 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY', 'qm#p$g+nM2o398*324qe130fd0a@#$_+&k3q+pmu)5%asj6yj%42gu')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['www.jongaither.com', 'jongaither.com']
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'health_tracker.urls'
@@ -75,18 +78,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'health_tracker.wsgi.application'
 
 
-MFP_CLIENT_USERNAME = os.getenv("MFP_CLIENT_USERNAME")
+MFP_CLIENT_USERNAME = os.environ.get('MFP_CLIENT_USERNAME', '')
+
 
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'healthtracker',
+        'NAME': os.environ.get('db_name', 'healthtracker'),
+        'USER': os.environ.get('db_user', 'healthtrackerman'),
+        'PASSWORD': os.environ.get('db_password', 'password'),
+        'HOST': 'localhost',
+        'PORT': '',
+        }
 }
+
+
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_RENDERER_CLASSES': (
