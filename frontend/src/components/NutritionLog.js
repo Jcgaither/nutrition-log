@@ -133,6 +133,7 @@ export class NutritionLog extends React.Component {
     }
 
     calculateDailyTotal = () => {
+        console.log("doing this");
         let calorieTotal = 0;
         let proteinTotal = 0;
         let carbohydratesTotal = 0;
@@ -143,6 +144,9 @@ export class NutritionLog extends React.Component {
             carbohydratesTotal += Number(entry.carbohydrates);
             fatTotal += Number(entry.fat);
         });
+        this.setState({totalCalories:calorieTotal, totalCarbs:carbohydratesTotal,
+                       totalFat:fatTotal, totalProtein:proteinTotal})
+        console.log(this.state.userNutrition);
     }
 
     queueSelectedMealEntry = (response) => {
