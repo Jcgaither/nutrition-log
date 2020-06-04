@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development ./src/index.js --output ./static/frontend/main.js",
+    "build": "webpack --mode production ./src/index.js --output ./static/frontend/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "lodash.debounce": "^4.0.8",
+    "react-semantic-toasts": "^0.6.5",
+    "react-semantic-ui-datepickers": "^2.6.0-beta.0",
+    "semantic-ui-react": "^0.88.2"
+  }
+}
