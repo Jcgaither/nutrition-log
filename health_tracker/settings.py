@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'qm#p$g+nM2o398*324qe130fd0a@#$_+&k3q+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['www.jongaither.com', 'jongaither.com']
+ALLOWED_HOSTS = ['localhost', 'jongaither.com', 'www.jongaither.com']
 
 
 
@@ -159,10 +159,15 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
     },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR'),
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
         },
     },
 }

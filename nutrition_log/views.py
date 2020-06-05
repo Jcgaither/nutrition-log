@@ -1,6 +1,7 @@
 import json
 import math
 import myfitnesspal
+import logging
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -11,6 +12,7 @@ from .models import UserNutrition
 from datetime import datetime, date, time, timezone
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 
+logger = logging.getLogger(__name__)
 
 client = myfitnesspal.Client(settings.MFP_CLIENT_USERNAME, settings.MFP_CLIENT_PASSWORD)
 
@@ -39,22 +41,24 @@ class UserViewSet(viewsets.ModelViewSet):
     def create(self, request):
         response = json.loads(request.data['data'])
         date = response.get('date', None)
-        if date is not None:
-            selected_date = datetime.fromtimestamp(math.floor(float(date)))
-            response['session'] = request.session.session_key
-            response['date_entered'] = selected_date
-            serializer = self.serializer_class(data=response)
-            if serializer.is_valid(raise_exception=True):
-                user_entry = UserNutrition.objects.create(**serializer.validated_data)
-                del serializer.validated_data['session']
-                serializer.validated_data['id'] = user_entry.id
-                return Response(
-                    serializer.validated_data, status=status.HTTP_201_CREATED
-                )
-
+        try:
+            if date is not None:
+                selected_date = datetime.fromtimestamp(math.floor(float(date)))
+                response['session'] = request.session.session_key
+                response['date_entered'] = selected_date
+                serializer = self.serializer_class(data=response)
+                if serializer.is_valid(raise_exception=True):
+                    user_entry = UserNutrition.objects.create(**serializer.validated_data)
+                    del serializer.validated_data['session']
+                    serializer.validated_data['id'] = user_entry.id
+                    return Response(
+                        serializer.validated_data, status=status.HTTP_201_CREATED
+                    )
+        except Exception as e:
+            logger.error(f'Error creating nutrition entry: {e}')
         return Response({
             'status': 'Bad request',
-            'message': 'Error creating user nutrition entry.'
+            'message': 'Error creating nutrition entry.'
         }, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -71,6 +75,7 @@ def get_food_list(request, query):
             }
         items.append(mfp_object)
     return JsonResponse(items, safe=False)
+
 
 def get_food_detail(request, id):
     food_item = client.get_food_item_details(id)
