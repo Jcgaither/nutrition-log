@@ -189,7 +189,9 @@ export class NutritionLog extends React.Component {
         return (
             <div>
                 <SemanticToastContainer />
-                <div className="ui main container">
+                    <div className="ui main container">
+                    <div className="ui raised segment">
+
                     <h2>Nutrition Log</h2>
                     <AddNutrition action={this.handleEntrySubmission} userLog={this.state.userNutrition} handleChange={this.handleChange}
                                   meal_name={this.state.meal_name} servings={this.state.servings} protein={this.state.protein}
@@ -216,7 +218,8 @@ export class NutritionLog extends React.Component {
                             </tfoot>
                     </table>
                     <DatePicker action={this.getUserNutritionLog} />
-                </div>        
+                    </div>
+                </div>      
             </div>   
         )
     }
